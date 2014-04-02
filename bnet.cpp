@@ -2564,7 +2564,7 @@ void CBNET :: ProcessChatEvent( CIncomingChatEvent *chatEvent )
 
 						if( AutoStartPlayers != 0 )
 						{
-							QueueChatCommand( m_GHost->m_Language->AutoStartEnabled( UTIL_ToString( AutoStartPlayers ) ), User, Whisper );
+							QueueChatCommand( m_GHost->m_Language->AutoStartEnabled( UTIL_ToString( AutoStartPlayers ), string( 1, m_GHost->m_CommandTrigger ) ), User, Whisper );
 							m_GHost->m_CurrentGame->SetAutoStartPlayers( AutoStartPlayers );
 						}
 					}

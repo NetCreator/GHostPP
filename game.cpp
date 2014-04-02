@@ -2239,7 +2239,7 @@ bool CGame :: EventPlayerBotCommand( CGamePlayer *player, string command, string
 
 					if( AutoStartPlayers != 0 )
 					{
-						SendAllChat( m_GHost->m_Language->AutoStartEnabled( UTIL_ToString( AutoStartPlayers, string( 1, m_GHost->m_CommandTrigger ) ) ) );
+						SendAllChat( m_GHost->m_Language->AutoStartEnabled( UTIL_ToString( AutoStartPlayers ), string( 1, m_GHost->m_CommandTrigger ) ) );
 						m_AutoStartPlayers = AutoStartPlayers;
 					}
 				}

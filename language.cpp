@@ -1096,7 +1096,7 @@ string CLanguage :: AutoStartDisabled( )
 	return m_CFG->GetString( "lang_0130", "lang_0130" );
 }
 
-string CLanguage :: AutoStartEnabled( string players )
+string CLanguage :: AutoStartEnabled( string players, string trigger )
 {
 	string Out = m_CFG->GetString( "lang_0131", "lang_0131" );
 	Replace( Out, "$PLAYERS$", players );

@@ -173,7 +173,7 @@ public:
 	string UnableToCreateGameInvalidMap( string gamename );
 	string WaitingForPlayersBeforeAutoStart( string players, string playersleft );
 	string AutoStartDisabled( );
-	string AutoStartEnabled( string players );
+	string AutoStartEnabled( string players, string trigger );
 	string AnnounceMessageEnabled( );
 	string AnnounceMessageDisabled( );
 	string AutoHostEnabled( );
