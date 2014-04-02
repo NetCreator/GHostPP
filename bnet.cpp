@@ -4284,7 +4284,7 @@ void CBNET :: ProcessChatEvent( CIncomingChatEvent *chatEvent )
 				// !J
 				//
 
-				/* if( ( Command == "join" || Command == "j") && !Payload.empty( ) )
+				if( ( Command == "join" || Command == "j") && !Payload.empty( ) )
 				{
 					string joinPayload = "/join " + Payload;
 
@@ -4295,7 +4295,7 @@ void CBNET :: ProcessChatEvent( CIncomingChatEvent *chatEvent )
 					}
 
 					QueueChatCommand( joinPayload );
-				} */
+				}
 
 
 				//
