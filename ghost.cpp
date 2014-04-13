@@ -413,14 +413,15 @@ HMODULE m_UDP;					// the chat server
 void CONSOLE_Print( string message )
 {
 	if (gGHost)
-	if (!gGHost->m_Console)
+	if (!gGHost->m_Console) {
+		//DEBUG_Print("No console to print to! Cancelling print.\n");
 		return;
+	}
 	string::size_type loc = message.find( "]", 0 );
-/*
+
 	if (loc<15)
 		message.insert(1,15-loc,' ');
-	else
-*/
+	else//*/
 //#ifdef WIN32
 	if (loc<34)
 		message.insert(1,34-loc,' ');
@@ -431,23 +432,31 @@ void CONSOLE_Print( string message )
 
 	if (gGHost!=NULL)
 	{
-		if (!gGHost->m_inconsole)
-		if (gGHost->m_UDPConsole)
-		{
-			char  *msg;
-			msg = new char[message.length() + 1];
-			strncpy(msg,message.c_str(), message.length());
-			msg[message.length()]=0;
-			gGHost->UDPChatSend(msg);
-			string hname = gGHost->m_VirtualHostName;
-			if (hname.substr(0,2)=="|c")
-				hname = hname.substr(10,hname.length()-10);
+		if (!gGHost->m_inconsole) {
+			if (gGHost->m_UDPConsole)
+			{
+				char  *msg;
+				msg = new char[message.length() + 1];
+				strncpy(msg,message.c_str(), message.length());
+				msg[message.length()]=0;
+				gGHost->UDPChatSend(msg);
+				cout << msg << endl;
+				string hname = gGHost->m_VirtualHostName;
+				if (hname.substr(0,2)=="|c")
+					hname = hname.substr(10,hname.length()-10);
 
-			if (message.find("]") == string :: npos)
-				gGHost->UDPChatSend("|Chate "+UTIL_ToString(hname.length())+" " +hname+" "+message);
+				if (message.find("]") == string :: npos)
+				{
+					gGHost->UDPChatSend("|Chate "+UTIL_ToString(hname.length())+" " +hname+" "+message);
+					cout << UTIL_ToString(hname.length()) << " " << hname << " " << message << endl;
+				}
+			} else {
+				cout << message << endl;
+			}
 		}
-		else
+		else {
 			cout << message << endl;
+		}
 	}
 	else
 		cout << message << endl;
@@ -455,8 +464,10 @@ void CONSOLE_Print( string message )
 	// logging
 
 	if (gGHost)
-		if (!gGHost->m_Log)
+		if (!gGHost->m_Log) {
+			//DEBUG_Print("No log to write to! Cancelling print.\n");
 			return;
+		}
 
 	if( !gLogFile.empty( ) )
 	{
@@ -945,8 +956,8 @@ CGHost :: CGHost( CConfig *CFG )
 	m_Exiting = false;
 	m_ExitingNice = false;
 	m_Enabled = true;
-	m_GHostVersion = "17.0 One";
-	m_Version = "("+m_GHostVersion+")";
+	m_GHostVersion = CFG->GetString( "bot_version", string( ) );
+	m_Version = CFG->GetString( "bot_version", string( ) );
 	stringstream SS;
 	string istr = string();
 	m_DisableReason = string();
@@ -2910,7 +2921,7 @@ void CGHost :: UDPCommands( string Message )
 	if (Command == "oneversion")
 	{
 		m_OneVersion = Payload;
-		m_Version = m_OneVersion+" ("+m_GHostVersion+")";
+		//m_Version = m_OneVersion+" ("+m_GHostVersion+")";
 	}
 
 	if (Command == "gamechat" && !Payload.empty())
